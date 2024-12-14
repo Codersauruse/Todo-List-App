@@ -1,0 +1,19 @@
+.mainboard {
+  display: flex;
+  height: 100vh;
+}
+
+.sideNav {
+  width: 250px;
+  background-color: #f8f9fa;
+}
+
+.sideNav .nav-link {
+  color: #000;
+  text-decoration: none;
+}
+
+.sideNav .nav-link.active {
+  font-weight: bold;
+  color: #0d6efd;
+}

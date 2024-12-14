@@ -1,0 +1,9 @@
+/* for desktop view */
+
+.desktop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  flex-direction: row;
+}
