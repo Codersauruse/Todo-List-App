@@ -1,0 +1,27 @@
+/* General container for tasks */
+
+/* Individual task styling */
+.task {
+  position: relative;
+  width: 90%; /* Make it responsive */
+  max-width: 400px; /* Limit the maximum size */
+  height: auto; /* Let height adjust based on content */
+  padding: 20px;
+  border: black solid 2px;
+  border-radius: 10px; /* Increase radius slightly */
+  background-color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for better aesthetics */
+}
+
+/* Task name styling */
+.task-name {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-size: 1.2rem; /* Responsive text size */
+  text-align: center;
+  font-weight: bold;
+}
+
+.task-name p {
+  margin: 0;
+}

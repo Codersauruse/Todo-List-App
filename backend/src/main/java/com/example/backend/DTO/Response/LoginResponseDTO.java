@@ -11,15 +11,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginResponseDTO {
-    private String jwt;
-    private String message;
+    private String username;
+    private String accessToken;
 
-    public void setJwt(String jwt){
-        this.jwt = jwt;
-    }
-    public void setMessage(String message){
-        this.message = message;
-    }
+
+
+
 
 }
 

@@ -1,9 +1,45 @@
-/* for desktop view */
-
+/* Desktop-specific styling */
 .desktop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  align-content: center;
-  flex-direction: row;
+  padding: 10px 20px; /* Add padding for better spacing */
+}
+
+.menu-button {
+  width: 40px; /* Increase width for better visibility */
+  height: 40px; /* Increase height for better visibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px; /* Add spacing between the icon and the logo */
+}
+
+.title {
+  font-family: "JollyLodger";
+  font-size: 30px;
+}
+
+/* Mobile-specific styles using media queries */
+@media (max-width: 900px) {
+  .title {
+    font-size: 24px; /* Smaller font size for mobile */
+  }
+
+  .navbar {
+    padding: 10px; /* Adjust padding for mobile */
+  }
+
+  .navbar-nav {
+    text-align: center; /* Center align links */
+  }
+
+  .nav-link {
+    font-size: 18px; /* Adjust font size for mobile links */
+    padding: 10px; /* Add space between links */
+  }
+
+  .navbar-toggler {
+    border: none; /* Remove border for cleaner look */
+  }
 }

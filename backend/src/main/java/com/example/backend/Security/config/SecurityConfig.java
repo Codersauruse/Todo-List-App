@@ -33,6 +33,8 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity (not recommended in production)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/register", "/api/auth/login","api/test/all").permitAll() // Allow public access
+                        .requestMatchers("/api/test/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/task/**").hasRole("USER")
                         .anyRequest().authenticated() // Require authentication for all other requests
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless session
@@ -51,4 +53,5 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
         return config.getAuthenticationManager();
     }
+
 }

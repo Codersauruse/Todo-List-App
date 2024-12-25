@@ -1,30 +1,84 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Button, Navbar, Nav } from "react-bootstrap";
+import MenuIcon from "@mui/icons-material/Menu";
+import IconButton from "@mui/material/IconButton";
+import { useRecoilState } from "recoil";
+import { isOpenState, userAtom } from "../../utils/Atoms/userAtom";
 import "./NavBar.css";
-import { NavLink } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavigationBar() {
+  const [isOpen, setIsOpen] = useRecoilState(isOpenState);
+  const [user, setUser] = useRecoilState(userAtom);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem("user"));
+    if (loggedUser) {
+      setUser(loggedUser);
+    }
+  }, [setUser]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    navigate("/login"); // Redirect to login after logout
+  };
+
   return (
-    //desktop view navbar
-    <Navbar fixed="top" bg="primary" data-bs-theme="dark" className="desktop">
-      <Container fluid>
-        <Navbar.Brand href="/">MytodoApp</Navbar.Brand>
-        <Nav>
-          <Nav.Link as={NavLink} to="/features">
-            Features
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/pricing">
-            Pricing
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/login">
-            Signup
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/register">
-            Join
-          </Nav.Link>
-        </Nav>
-      </Container>
+    <Navbar
+      fixed="top"
+      variant="dark"
+      expand="lg"
+      className="bg-primary desktop"
+    >
+      {user && (
+        <IconButton
+          onClick={() => setIsOpen(!isOpen)}
+          edge="start"
+          aria-label="menu"
+          className="menu-button"
+        >
+          <MenuIcon sx={{ fontSize: 30 }} />
+        </IconButton>
+      )}
+
+      {!user ? (
+        <Navbar.Brand href="/" className="title">
+          MyTodoApp
+        </Navbar.Brand>
+      ) : (
+        <></>
+      )}
+      <Nav className="mr-auto">
+        <Nav.Link as={Link} to="/" key="home">
+          Home
+        </Nav.Link>
+
+        <Nav.Link as={Link} to="/pricing" key="pricing">
+          Pricing
+        </Nav.Link>
+
+        {!user ? (
+          <>
+            <Nav.Link as={Link} to="/login" key="login">
+              Login
+            </Nav.Link>
+            <Nav.Link as={Link} to="/register" key="register">
+              Sign Up
+            </Nav.Link>
+          </>
+        ) : (
+          <>
+            <Nav.Link as={Link} to="/dashboard" key="dashboard">
+              Dashboard
+            </Nav.Link>
+            <Button variant="outline-light" onClick={handleLogout} key="logout">
+              Logout
+            </Button>
+          </>
+        )}
+      </Nav>
     </Navbar>
   );
 }

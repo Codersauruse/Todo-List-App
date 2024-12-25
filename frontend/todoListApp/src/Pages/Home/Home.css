@@ -1,0 +1,91 @@
+/*for Desktop */
+
+.home {
+  width: 100%;
+}
+
+.con1 {
+  margin-top: 5%;
+  margin-bottom: 20%;
+  column-gap: 10%;
+}
+.intro,
+.img1 {
+  width: 50%;
+}
+.con2 {
+  column-gap: 10%;
+}
+
+.intro,
+.features p {
+  font-family: "BerkshireSwash";
+  font-style: italic;
+  font-size: 50px;
+}
+.features li {
+  font-family: "BellotaText";
+}
+
+/* Mobile styles for screens < 900px */
+@media (max-width: 900px) {
+  .home {
+    padding: 10px;
+  }
+
+  .con1 {
+    flex-direction: column; /* Stack items vertically */
+    margin-top: 10%;
+    margin-bottom: 10%;
+    column-gap: 0;
+  }
+
+  .intro {
+    margin-top: 10%;
+    width: 100%;
+    text-align: center;
+  }
+
+  .img1 {
+    width: 100%;
+    text-align: center;
+  }
+
+  .img1 img {
+    width: 90%; /* Shrink image to fit smaller screens */
+    height: auto;
+  }
+
+  .con2 {
+    flex-direction: column; /* Stack items vertically */
+    column-gap: 0;
+    row-gap: 20px; /* Add spacing between items */
+  }
+
+  .img2 {
+    text-align: center;
+  }
+
+  .img2 img {
+    width: 90%; /* Adjust image size */
+    height: auto;
+  }
+
+  .features p {
+    font-size: 10%; /* Reduce font size for smaller screens */
+    text-align: center;
+  }
+
+  .intro p {
+    font-size: 70%; /* Reduce font size for smaller screens */
+    text-align: center;
+  }
+
+  .features ul {
+    padding: 0;
+  }
+
+  .features li {
+    font-size: 16px; /* Smaller font size for list items */
+  }
+}

@@ -7,6 +7,7 @@ export default function Layout() {
   return (
     <>
       <Navbar />
+
       <div className="d-flex flex-column min-vh-100 align-items-center">
         <main className="flex-grow-1">
           <Outlet />

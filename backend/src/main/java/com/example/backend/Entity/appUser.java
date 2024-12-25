@@ -34,6 +34,9 @@ public class appUser {
     @Column(nullable = false,length = 120,name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "user") // "user" is the field name in Task entity
+    private Set<Task> tasks = new HashSet<>();
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))

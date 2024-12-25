@@ -7,7 +7,7 @@ import Register from "../Register/Register";
 import AuthRoute from "../AuthRoute/AuthRoute";
 import Dashboard from "../dashboard/Dashboard";
 import AddTask from "../dashboard/AddTask/AddTask";
-import DeleteTask from "../dashboard/deleteTasks/DeleteTask";
+import DailyTasks from "../dashboard/ViewDailyTasks/DailyTasks";
 import ViewTasks from "../dashboard/viewTasks/ViewTasks";
 
 export default function AppRoute() {
@@ -23,7 +23,7 @@ export default function AppRoute() {
         {/* Protected Dashboard Routes */}
         <Route path="dashboard" element={<Dashboard />}>
           <Route path="add-task" element={<AddTask />} />
-          <Route path="delete-task" element={<DeleteTask />} />
+          <Route path="daily-tasks" element={<DailyTasks />} />
           <Route path="view-task" element={<ViewTasks />} />
         </Route>
       </Route>

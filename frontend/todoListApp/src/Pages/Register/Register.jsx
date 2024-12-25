@@ -3,101 +3,106 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { NavItem, NavLink } from "react-bootstrap";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import authService from "../../services/auth-service"; // Import your authService
 import "./Register.css";
 
+const initialFormData = {
+  username: "",
+  password: "",
+  confirmPassword: "",
+};
+
 export default function Register() {
-  const [isvalidated, setvalidate] = useState(false);
-  const [formData, setDetails] = useState({
-    name: "",
-    password: "",
-  });
-  const [errMessage, setMessage] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(event) {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    // if (formData.name < 5) {
-    //   setMessage("username must be 10 character length");
-    // } else {
-    //   setMessage("username ok");
-    // }
-
-    // if (formData.password < 5) {
-    //   setMessage("password must be 10 character length");
-    // } else {
-    //   setMessage("password ok");
-    // }
-    setvalidate(true);
-  }
-
-  function handleChange(e) {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setDetails({ ...formData, [name]: value });
-  }
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const { username, password, confirmPassword } = formData;
+
+    // Validation logic remains the same
+
+    try {
+      setIsSubmitting(true);
+      await authService.register(username, null, password);
+      toast.success("Registration successful!");
+      setFormData(initialFormData); // Reset form
+      navigate("/login");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Registration failed.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <>
-      <div className="register-form p-4">
-        <h3>Register</h3>
-        <Form
-          noValidate
-          validated={isvalidated}
-          onSubmit={handleSubmit}
-          onChange={handleChange}
-        >
-          <Form.Group>
-            <Form.Control
-              required
-              type="text"
-              placeholder="Username"
-              className="p-2"
-            />
-            <Form.Control.Feedback type="valid">
-              {errMessage}
-            </Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              {errMessage}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <br />
-          <Form.Group>
-            <Form.Control
-              required
-              type="password"
-              placeholder="Password"
-              className="p-2"
-            />
-            <Form.Control.Feedback type="valid">
-              {errMessage}
-            </Form.Control.Feedback>
-            <Form.Control.Feedback type="invalid">
-              {errMessage}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <br />
+    <div className="register-form p-4">
+      <h3>Register</h3>
+      <Form noValidate onSubmit={handleSubmit}>
+        <Form.Group>
+          <Form.Control
+            required
+            type="text"
+            name="username"
+            placeholder="Username"
+            className="p-2"
+            value={formData.username}
+            onChange={handleChange}
+            aria-label="Username"
+          />
+        </Form.Group>
+        <br />
+        <Form.Group>
           <Form.Control
             required
             type="password"
-            placeholder="Retype Password"
+            name="password"
+            placeholder="Password"
             className="p-2"
+            value={formData.password}
+            onChange={handleChange}
+            aria-label="Password"
           />
-          <br />
-          <Button type="submit" className="p-2 mb-1">
-            Register
-          </Button>
-        </Form>
-        <h4>OR</h4>
-        <Nav className="flex-column">
-          <NavItem>
-            <NavLink style={{ color: "green" }}>Login with Google</NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink style={{ color: "black" }}>Login with Github</NavLink>
-          </NavItem>
-        </Nav>
-      </div>
-    </>
+        </Form.Group>
+        <br />
+        <Form.Group>
+          <Form.Control
+            required
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            className="p-2"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            aria-label="Confirm Password"
+          />
+        </Form.Group>
+        <br />
+        <Button type="submit" className="p-2 mb-1" disabled={isSubmitting}>
+          {isSubmitting ? "Registering..." : "Register"}
+        </Button>
+      </Form>
+      <h4>OR</h4>
+      <Nav className="flex-column">
+        <NavItem>
+          <NavLink href="/auth/google" className="text-success">
+            Login with Google
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/auth/github" className="text-dark">
+            Login with Github
+          </NavLink>
+        </NavItem>
+      </Nav>
+    </div>
   );
 }

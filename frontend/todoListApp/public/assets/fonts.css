@@ -1,0 +1,82 @@
+/* Actor Regular */
+@font-face {
+  font-family: "Actor";
+  src: url("/assets/fonts/Actor/Actor-Regular.ttf") format("truetype");
+}
+
+/* Atomic Age Regular */
+@font-face {
+  font-family: "AtomicAge";
+  src: url("/assets/fonts/Atomic_Age/AtomicAge-Regular.ttf") format("truetype");
+}
+
+/* Bellota Text - Bold */
+@font-face {
+  font-family: "BellotaText";
+  src: url("/assets/fonts/Bellota_Text/BellotaText-Bold.ttf") format("truetype");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+}
+
+/* Bellota Text - Bold Italic */
+@font-face {
+  font-family: "BellotaText";
+  src: url("/assets/fonts/Bellota_Text/BellotaText-BoldItalic.ttf")
+    format("truetype");
+  font-weight: 700; /* Bold */
+  font-style: italic;
+}
+
+/* Bellota Text - Italic */
+@font-face {
+  font-family: "BellotaText";
+  src: url("/assets/fonts/Bellota_Text/BellotaText-Italic.ttf")
+    format("truetype");
+  font-weight: 400; /* Regular */
+  font-style: italic;
+}
+
+/* Bellota Text - Light */
+@font-face {
+  font-family: "BellotaText";
+  src: url("/assets/fonts/Bellota_Text/BellotaText-Light.ttf")
+    format("truetype");
+  font-weight: 300; /* Light */
+  font-style: normal;
+}
+
+/* Bellota Text - Light Italic */
+@font-face {
+  font-family: "BellotaText";
+  src: url("/assets/fonts/Bellota_Text/BellotaText-LightItalic.ttf")
+    format("truetype");
+  font-weight: 300; /* Light */
+  font-style: italic;
+}
+
+/* Bellota Text - Regular */
+@font-face {
+  font-family: "BellotaText";
+  src: url("/assets/fonts/Bellota_Text/BellotaText-Regular.ttf")
+    format("truetype");
+  font-weight: 400; /* Regular */
+  font-style: normal;
+}
+
+/* Berkshire Swash */
+@font-face {
+  font-family: "BerkshireSwash";
+  src: url("/assets/fonts/Berkshire_Swash/BerkshireSwash-Regular.ttf")
+    format("truetype");
+  font-weight: 400; /* Regular */
+  font-style: normal;
+}
+
+/* Jolly Lodger */
+@font-face {
+  font-family: "JollyLodger";
+  src: url("/assets/fonts/Jolly_Lodger/JollyLodger-Regular.ttf")
+    format("truetype");
+  font-weight: 400; /* Regular */
+  font-style: normal;
+}
