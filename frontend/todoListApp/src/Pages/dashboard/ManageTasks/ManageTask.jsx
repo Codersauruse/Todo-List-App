@@ -38,7 +38,7 @@ export default function ManageTask() {
     async function getAllTasks() {
       setIsLoading(true);
       try {
-        const response = await taskService.getDailyTasks(userId);
+        const response = await taskService.getAllTasks(userId);
         console.log(response);
         setTasks(response);
         setFilteredTasks(response);
@@ -238,47 +238,47 @@ export default function ManageTask() {
             </thead>
             <tbody>
               {currentTasks.length > 0 ? (
-                currentTasks.map(
-                  (task) =>
-                    !task.iscomplete && (
-                      <tr key={task.id}>
-                        <td>{task.name}</td>
-                        <td>{task.description}</td>
-                        <td>
-                          <span
-                            className={`badge ${
-                              task.priority === "High"
-                                ? "bg-danger"
-                                : task.priority === "Medium"
-                                ? "bg-warning"
-                                : "bg-success"
-                            }`}
-                          >
-                            {task.priority}
-                          </span>
-                        </td>
-                        <td>{task.startDate}</td>
-                        <td>{task.dueDate}</td>
-                        <td>
-                          <Button
-                            variant="primary"
-                            size="sm"
-                            className="me-2"
-                            onClick={() => handleUpdate(task)}
-                          >
-                            Update
-                          </Button>
-                          <Button
-                            variant="danger"
-                            size="sm"
-                            onClick={() => handleDelete(task)}
-                          >
-                            Delete
-                          </Button>
-                        </td>
-                      </tr>
-                    )
-                )
+                currentTasks.map((task) => (
+                  <tr key={task.id}>
+                    <td>{task.name}</td>
+                    <td>{task.description}</td>
+                    <td>
+                      <span
+                        className={`badge ${
+                          task.priority === "High"
+                            ? "bg-danger"
+                            : task.priority === "Medium"
+                            ? "bg-warning"
+                            : "bg-success"
+                        }`}
+                      >
+                        {task.priority}
+                      </span>
+                    </td>
+                    <td>{task.startDate}</td>
+                    <td>{task.dueDate}</td>
+                    <td>
+                      {!task.iscomplete && (
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          className="me-2"
+                          onClick={() => handleUpdate(task)}
+                        >
+                          Update
+                        </Button>
+                      )}
+
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => handleDelete(task)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))
               ) : (
                 <tr>
                   <td colSpan="6" className="text-center">

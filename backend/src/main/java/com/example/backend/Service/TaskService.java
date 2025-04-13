@@ -59,24 +59,15 @@ public class TaskService {
     }
 
 
-    public List<TaskResponseDTO> getAllTasks() {
-        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Here, you would fetch the appUser based on the username (or userId) from the database
-        appUser user = userRepo.findByUsername(principal.getUsername());
-        List<TaskResponseDTO> mylist = new ArrayList<>();
-        if(taskRepo.existsByUser_Id(user.getId())){
-            List<Task> myTasks = taskRepo.findByUser_Id(user.getId());
-            if(!myTasks.isEmpty()){
-                for (Task t:myTasks
-                     ) {
-                    mylist.add(new TaskResponseDTO(t.getId(),t.getName(),t.getDescription(),t.getPriority(),t.getStartDate(),t.getDueDate(),t.isIscomplete()));
-
-                }
-            }
-
+    public List<Task> getAllTasks(long id) {
+        Optional<appUser> AppUser = userRepo.findById(id);
+        if(AppUser.isEmpty()){
+            throw new RuntimeException("user is not registerd");
         }
-   return  mylist;
+
+            List<Task> myTasks = taskRepo.findAllByUser(AppUser.get());
+
+   return  myTasks;
     }
 
     public List<TaskResponseDTO> getDailyTasks(long id) {

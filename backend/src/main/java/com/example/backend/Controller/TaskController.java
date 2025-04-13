@@ -39,9 +39,9 @@ public class TaskController {
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/getAllTasks")
-    public ResponseEntity<List<TaskResponseDTO>>getAllTasks(){
-        List<TaskResponseDTO> myTasks = taskService.getAllTasks();
+    @GetMapping("/getAllTasks/{id}")
+    public ResponseEntity<List<Task>>getAllTasks(@PathVariable long id){
+        List<Task> myTasks = taskService.getAllTasks(id);
         if(myTasks.isEmpty()){
          return ResponseEntity.noContent().build();
         }

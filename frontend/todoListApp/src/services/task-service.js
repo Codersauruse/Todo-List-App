@@ -18,11 +18,11 @@ const createTask = async (task) => {
   }
 };
 
-const getAllTasks = async () => {
+const getAllTasks = async (id) => {
   try {
     // Send a GET request to the API
 
-    const response = await Apiclient.get(API_URL + "getAllTasks", {
+    const response = await Apiclient.get(API_URL + `getAllTasks/${id}`, {
       headers: authHeader(), // Use the authHeader to add Authorization
     });
 

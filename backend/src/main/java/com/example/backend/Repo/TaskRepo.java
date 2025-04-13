@@ -32,4 +32,6 @@ public interface TaskRepo extends JpaRepository<Task,Long> {
     Optional<Task> findByIdAndUser_Id(Long id, Long id1);
 
     boolean existsByUser(appUser appUser);
+
+    List<Task> findAllByUser(appUser appUser);
 }

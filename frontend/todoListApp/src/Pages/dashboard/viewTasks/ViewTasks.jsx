@@ -16,7 +16,7 @@ export default function ViewTasks() {
   useEffect(() => {
     async function getAllTasks() {
       try {
-        const response = await taskService.getDailyTasks(userId);
+        const response = await taskService.getAllTasks(userId);
         console.log(response);
         setTasks(response);
       } catch (error) {
