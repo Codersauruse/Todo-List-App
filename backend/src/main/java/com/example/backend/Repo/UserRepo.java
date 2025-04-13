@@ -20,4 +20,5 @@ public interface UserRepo extends JpaRepository<appUser,Long> {
     List<appUser> findAllByUsernameNotLike(String username);
 
 
+    appUser findByEmail(String email);
 }

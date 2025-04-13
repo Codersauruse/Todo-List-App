@@ -2,16 +2,16 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
-import { NavItem, NavLink } from "react-bootstrap";
+import { NavItem, NavLink, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { userAtom, isOpenState } from "../../utils/Atoms/userAtom";
+import { userAtom } from "../../utils/Atoms/userAtom";
 import { useRecoilState } from "recoil";
 import toast from "react-hot-toast";
-import AuthService from "../../services/auth-service"; // Import AuthService
+import AuthService from "../../services/auth-service";
 import "./Login.css";
 
 const initialState = {
-  username: "",
+  email: "",
   password: "",
 };
 
@@ -33,13 +33,14 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Validate input fields
-    if (!formInput.username.trim()) {
-      toast.error("Username is required");
+    // Validation
+    if (!formInput.email.trim()) {
+      toast.error("email is required");
       return;
     }
-    if (formInput.username.length < 4 || formInput.username.length > 20) {
-      toast.error("Username must be between 4 and 20 characters");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formInput.email)) {
+      toast.error("Please enter a valid email address.");
       return;
     }
     if (!formInput.password.trim()) {
@@ -54,12 +55,12 @@ export default function Login() {
     setLoading(true);
     try {
       const userData = await AuthService.login(
-        formInput.username,
+        formInput.email,
         formInput.password
-      ); // Use AuthService
-      setUser(userData); // Update Recoil state
+      );
+      setUser(userData);
+      navigate("/dashboard/daily-tasks");
       toast.success(`Welcome back, ${userData.username}!`);
-      navigate("/dashboard");
     } catch (error) {
       const message = error?.response?.data?.message || "Login failed";
       setError(message);
@@ -70,60 +71,70 @@ export default function Login() {
   };
 
   return (
-    <div className="login-form p-4">
-      <h3>Login</h3>
-      <Form noValidate onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Control
-            required
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Enter your username"
-            className="p-2"
-            value={formInput.username}
-            onChange={handleFormInput}
-            aria-label="Username"
-          />
-        </Form.Group>
-        <br />
-        <Form.Group>
-          <Form.Control
-            required
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter your password"
-            className="p-2"
-            value={formInput.password}
-            onChange={handleFormInput}
-            aria-label="Password"
-          />
-        </Form.Group>
-        <br />
-        {error && <p className="text-danger">{error}</p>}
-        <Button type="submit" className="p-2 mb-1" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </Button>
-      </Form>
-      <h4>OR</h4>
-      <Nav className="flex-column">
-        <NavItem>
-          <NavLink href="/auth/google" className="text-success">
-            Login with Google
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/auth/github" className="text-dark">
-            Login with GitHub
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/forgot-password" className="text-primary">
-            Forgot password?
-          </NavLink>
-        </NavItem>
-      </Nav>
-    </div>
+    <Container className="d-flex justify-content-center align-items-center min-vh-100">
+      <Row className="w-100 justify-content-center">
+        <Col xs={12} md={8} lg={5} xl={4}>
+          <div className="login-form p-4 border rounded bg-white shadow-sm">
+            <h3 className="text-center mb-4">Login</h3>
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Control
+                  required
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your username"
+                  className="p-2 mb-3"
+                  value={formInput.email}
+                  onChange={handleFormInput}
+                  aria-label="Username"
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Control
+                  required
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  className="p-2 mb-3"
+                  value={formInput.password}
+                  onChange={handleFormInput}
+                  aria-label="Password"
+                />
+              </Form.Group>
+              {error && <p className="text-danger">{error}</p>}
+              <Button
+                type="submit"
+                className="w-100 p-2 mb-3"
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Login"}
+              </Button>
+            </Form>
+            <div className="text-center">
+              <h5 className="my-3">OR</h5>
+              <Nav className="flex-column">
+                <NavItem>
+                  <NavLink href="/auth/google" className="text-success">
+                    Login with Google
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/auth/github" className="text-dark">
+                    Login with GitHub
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/forgot-password" className="text-primary">
+                    Forgot password?
+                  </NavLink>
+                </NavItem>
+              </Nav>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }

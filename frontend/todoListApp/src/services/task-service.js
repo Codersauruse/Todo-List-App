@@ -1,12 +1,13 @@
 import axios from "axios";
 import authHeader from "./auth-header";
+import Apiclient from "./ApiClient";
 
-const API_URL = "http://localhost:8080/api/task";
+const API_URL = "api/task/";
 
 const createTask = async (task) => {
   try {
     // Make a POST request to your backend API
-    const response = await axios.post(API_URL + "/create-task", task, {
+    const response = await Apiclient.post(API_URL + "create-task", task, {
       headers: authHeader(), // Call authHeader to get the header object
     });
     return response;
@@ -21,7 +22,7 @@ const getAllTasks = async () => {
   try {
     // Send a GET request to the API
 
-    const response = await axios.get(API_URL + "/getAllTasks", {
+    const response = await Apiclient.get(API_URL + "getAllTasks", {
       headers: authHeader(), // Use the authHeader to add Authorization
     });
 
@@ -33,11 +34,11 @@ const getAllTasks = async () => {
   }
 };
 
-const getDailyTasks = async () => {
+const getDailyTasks = async (id) => {
   try {
     console.log(authHeader());
     // Send a GET request to fetch daily tasks
-    const response = await axios.get(API_URL + "/getDailyTasks", {
+    const response = await Apiclient.get(API_URL + `getDailyTasks/${id}`, {
       headers: authHeader(), // Use authHeader to add the Authorization header
     });
 
@@ -52,7 +53,7 @@ const getDailyTasks = async () => {
 const deleteTask = async (taskId) => {
   try {
     // Send a DELETE request to delete the task by ID
-    const response = await axios.delete(`${API_URL}/delete/${taskId}`, {
+    const response = await Apiclient.delete(`${API_URL}delete/${taskId}`, {
       headers: authHeader(), // Use authHeader to add the Authorization header
     });
 
@@ -66,14 +67,34 @@ const deleteTask = async (taskId) => {
 const updateTaskPartial = async (taskId, updates) => {
   try {
     // Send a PATCH request to update specific fields of a task
-    const response = await axios.patch(`${API_URL}/update/${taskId}`, updates, {
-      headers: authHeader(), // Use authHeader to add the Authorization header
-    });
+    const response = await Apiclient.patch(
+      `${API_URL}update/${taskId}`,
+      updates,
+      {
+        headers: authHeader(), // Use authHeader to add the Authorization header
+      }
+    );
 
     return response.data; // Return the success message
   } catch (error) {
     console.error("Error updating task:", error);
     throw error; // Re-throw the error to handle in the caller
+  }
+};
+
+const updateStatus = async (id) => {
+  try {
+    const response = await Apiclient.patch(
+      API_URL + `markAsCompleted/${id}`,
+      {},
+      {
+        headers: authHeader(),
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("error updating status", error);
+    throw new Error(error);
   }
 };
 
@@ -83,4 +104,5 @@ export default {
   getDailyTasks,
   deleteTask,
   updateTaskPartial,
+  updateStatus,
 };

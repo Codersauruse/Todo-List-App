@@ -1,11 +1,13 @@
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useAuth } from "./AuthContext";
 
 export default function PrivateRoute({ children }) {
-  const user = JSON.parse(localStorage.getItem("user")) || null;
+  const user = useAuth();
+  // console.log(user);
   const { pathname } = useLocation();
 
-  return user ? (
+  return user.user ? (
     children
   ) : (
     <Navigate to="/login" state={{ from: pathname }} replace />

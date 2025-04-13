@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 
+import com.example.backend.DTO.Request.RequestTaskDTO;
 import com.example.backend.DTO.Response.TaskResponseDTO;
 import com.example.backend.Entity.Task;
 import com.example.backend.Repo.TaskRepo;
@@ -26,7 +27,7 @@ public class TaskController {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/create-task")
-    public ResponseEntity<String> createTask(@RequestBody Task task){
+    public ResponseEntity<String> createTask(@RequestBody RequestTaskDTO task){
         String result = taskService.createTask(task);
         if ("success".equals(result)) {
             return new ResponseEntity<>("Task created successfully", HttpStatus.CREATED); // HTTP 201 Created
@@ -50,9 +51,9 @@ public class TaskController {
 
 }
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/getDailyTasks")
-    public ResponseEntity<List<TaskResponseDTO>>getDailyTasks(){
-        List<TaskResponseDTO> myTasks = taskService.getDailyTasks();
+    @GetMapping("/getDailyTasks/{id}")
+    public ResponseEntity<List<TaskResponseDTO>>getDailyTasks(@PathVariable long id){
+        List<TaskResponseDTO> myTasks = taskService.getDailyTasks(id);
         if(myTasks.isEmpty()){
             return ResponseEntity.noContent().build();
         }
@@ -85,4 +86,19 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found.");
         }
     }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PatchMapping("/markAsCompleted/{id}")
+    public ResponseEntity<String> updateTaskstatus(@PathVariable Long id){
+        String message = taskService.updateTaskstatus(id);
+        if("success".equals(message)){
+            return new ResponseEntity<>("task successfully updated",HttpStatus.OK);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Task not found.");
+        }
+    }
+
+
+
 }

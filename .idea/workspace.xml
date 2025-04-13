@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd66b7e0-b790-4c6d-934a-f55ad131fd96" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Security/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Security/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Security/jwt/JWTService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Security/jwt/JWTService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/example/backend/Service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/src/Components/Task/Task.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/src/Components/Task/Task.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/AddTask/AddTask.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/AddTask/AddTask.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/ViewDailyTasks/DailyTasks.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/ViewDailyTasks/DailyTasks.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/ViewDailyTasks/DailyTasks.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/ViewDailyTasks/DailyTasks.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/viewTasks/ViewTasks.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/src/Pages/dashboard/viewTasks/ViewTasks.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/src/services/task-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/src/services/task-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/src/utils/Atoms/userAtom.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/src/utils/Atoms/userAtom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/todoListApp/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/todoListApp/vite.config.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2vOfeNIR16a5DBH6oSFwvH3IkzP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/code/repositories/Todo-List-App&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd66b7e0-b790-4c6d-934a-f55ad131fd96" name="Changes" comment="" />
+      <created>1744021137248</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744021137248</updated>
+      <workItem from="1744021145737" duration="618000" />
+      <workItem from="1744023860983" duration="178000" />
+      <workItem from="1744426169611" duration="698000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

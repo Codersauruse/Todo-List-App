@@ -55,8 +55,8 @@ export default function NavigationBar() {
           Home
         </Nav.Link>
 
-        <Nav.Link as={Link} to="/pricing" key="pricing">
-          Pricing
+        <Nav.Link as={Link} to="/details" key="pricing">
+          About
         </Nav.Link>
 
         {!user ? (
@@ -70,7 +70,7 @@ export default function NavigationBar() {
           </>
         ) : (
           <>
-            <Nav.Link as={Link} to="/dashboard" key="dashboard">
+            <Nav.Link as={Link} to="/dashboard/daily-tasks" key="dashboard">
               Dashboard
             </Nav.Link>
             <Button variant="outline-light" onClick={handleLogout} key="logout">

@@ -1,45 +1,61 @@
 package com.example.backend.Service;
 
 
+import com.example.backend.DTO.Request.RequestTaskDTO;
 import com.example.backend.DTO.Response.TaskResponseDTO;
 import com.example.backend.Entity.Task;
 import com.example.backend.Entity.UserPrincipal;
 import com.example.backend.Entity.appUser;
 import com.example.backend.Repo.TaskRepo;
 import com.example.backend.Repo.UserRepo;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TaskService {
     @Autowired
     private TaskRepo taskRepo;
 
+
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     private UserRepo userRepo;
-    public String createTask(Task task) {
-        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @Transactional
+    public String createTask(RequestTaskDTO task) {
 
-        // Here, you would fetch the appUser based on the username (or userId) from the database
-        appUser user = userRepo.findByUsername(principal.getUsername());
+
+
+        Optional<appUser> user = userRepo.findById(task.getId());
+        if(user.isEmpty()){
+            throw new RuntimeException("user is not found");
+        }
+        System.out.println(user.get());
 
         // Set the user for the task
-        task.setUser(user);
+       Task newtask = new Task();
+        System.out.println(newtask);
+        newtask.setName(task.getName());
+        newtask.setDescription(task.getDescription());
+        newtask.setPriority(task.getPriority());
+        newtask.setStartDate(task.getStartDate());
+        newtask.setDueDate(task.getDueDate());
+        newtask.setIscomplete(false);
+        newtask.setUser(user.get());
 
+        System.out.println(newtask);
         // Check if the task already exists by name
-        if (!taskRepo.existsByName(task.getName())) {
-            taskRepo.save(task);
+//        if (!taskRepo.existsByName(newtask.getName())) {
+            taskRepo.save(newtask);
             return "success"; // Task created successfully
-        }
-        return "alreadyExists"; // Task with the same name already exists
+//        }
+//        return "alreadyExists"; // Task with the same name already exists
     }
 
 
@@ -63,15 +79,15 @@ public class TaskService {
    return  mylist;
     }
 
-    public List<TaskResponseDTO> getDailyTasks() {
-        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        // Here, you would fetch the appUser based on the username (or userId) from the database
-        appUser user = userRepo.findByUsername(principal.getUsername());
+    public List<TaskResponseDTO> getDailyTasks(long id) {
+        Optional<appUser> user = userRepo.findById(id);
+        if(user.isEmpty()){
+            throw new RuntimeException("user is not registered");
+        }
         List<TaskResponseDTO> mylist = new ArrayList<>();
         LocalDate today = LocalDate.now();
-        if(taskRepo.existsByUser_Id(user.getId())){
-            List<Task> myTasks = taskRepo.findByUser_IdAndIscompleteFalse(user.getId());
+        if(taskRepo.existsByUser(user.get())){
+            List<Task> myTasks = taskRepo.findByUser_IdAndIscompleteFalse(user.get().getId());
             if(!myTasks.isEmpty()){
                 for (Task t:myTasks
                 ) {
@@ -87,11 +103,8 @@ public class TaskService {
 
     @Transactional
     public String deleteTask(Long id) {
-        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        // Here, you would fetch the appUser based on the username (or userId) from the database
-        appUser user = userRepo.findByUsername(principal.getUsername());
-        Optional<Task> task = taskRepo.findByIdAndUser_Id(id, user.getId());
+        Optional<Task> task = taskRepo.findById(id);
 
         if (task.isPresent()) {
             // Delete the task if it exists
@@ -103,26 +116,27 @@ public class TaskService {
     }
 
     public String updateTaskPartial(Long id, Map<String, Object> updates) {
-        UserPrincipal principal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        // Here, you would fetch the appUser based on the username (or userId) from the database
-        appUser user = userRepo.findByUsername(principal.getUsername());
-        Optional<Task> optionalTask = taskRepo.findByIdAndUser_Id(id, user.getId());
+        Optional<Task> optionalTask = taskRepo.findById(id);
 
         if(optionalTask.isPresent()){
             Task task = optionalTask.get();
 
             // Apply updates to the task
             updates.forEach((key, value) -> {
-                        switch (key) {
-                            case "name" -> task.setName((String) value);
-                            case "description" -> task.setDescription((String) value);
-                            case "priority" -> task.setPriority((String) value);
-                            case "startDate" -> task.setStartDate(LocalDate.parse((String) value));
-                            case "dueDate" -> task.setDueDate(LocalDate.parse((String) value));
-                            case "isComplete" -> task.setIscomplete((Boolean) value);
-                            default -> throw new IllegalArgumentException("Invalid field: " + key);
-                        }
+                System.out.println(key);
+
+
+                           switch (key) {
+
+                               case "name" -> task.setName((String) value);
+                               case "description" -> task.setDescription((String) value);
+                               case "priority" -> task.setPriority((String) value);
+                               case "startDate" -> task.setStartDate(LocalDate.parse((String) value));
+                               case "dueDate" -> task.setDueDate(LocalDate.parse((String) value));
+                               default -> throw new IllegalArgumentException("Invalid field: " + key);
+                           }
+
 
         });
             taskRepo.save(task);
@@ -131,4 +145,14 @@ public class TaskService {
     }
         return "fail";
 }
+
+    public String updateTaskstatus(Long id) {
+        Optional<Task> task = taskRepo.findById(id);
+        if(task.isEmpty()){
+            throw new RuntimeException("there is no task");
+        }
+        task.get().setIscomplete(true);
+        taskRepo.save(task.get());
+        return "success";
+    }
 }

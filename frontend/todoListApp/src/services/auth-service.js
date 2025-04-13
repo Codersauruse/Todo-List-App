@@ -18,10 +18,10 @@ const register = async (username, email, password) => {
 };
 
 // Log in a user
-const login = async (username, password) => {
+const login = async (email, password) => {
   try {
     const response = await Apiclient.post(API_URL + "login", {
-      username,
+      email,
       password,
     });
 

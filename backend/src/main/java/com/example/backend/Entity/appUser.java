@@ -21,12 +21,12 @@ public class appUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true,length = 20,name = "username")
+    @Column(nullable = false,length = 20,name = "username")
 
     private String username;
 
 
-    @Column(nullable = false,unique = true,length = 50,name = "email")
+    @Column(nullable = false,unique = true,name = "email")
 
     private String email;
 
@@ -34,11 +34,8 @@ public class appUser {
     @Column(nullable = false,length = 120,name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "user") // "user" is the field name in Task entity
-    private Set<Task> tasks = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private ERole role;
 }

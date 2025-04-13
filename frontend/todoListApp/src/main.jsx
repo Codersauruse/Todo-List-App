@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router";
 import App from "./App.jsx";
+
 import {
   RecoilRoot,
   atom,
@@ -10,13 +11,16 @@ import {
   useRecoilState,
   useRecoilValue,
 } from "recoil";
+import { AuthProvider } from "./Pages/Route/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <RecoilRoot>
-        <App />
-      </RecoilRoot>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <RecoilRoot>
+          <App />
+        </RecoilRoot>
+      </BrowserRouter>
+    </AuthProvider>
   </StrictMode>
 );

@@ -32,9 +32,11 @@ export default function Sidebar() {
           <ListItem button component={NavLink} to="/dashboard/add-task">
             <ListItemText primary="Add Task" />
           </ListItem>
-
           <ListItem button component={NavLink} to="/dashboard/view-task">
             <ListItemText primary="View Tasks" />
+          </ListItem>
+          <ListItem button component={NavLink} to="/dashboard/manage-task">
+            <ListItemText primary="Manage Tasks" />
           </ListItem>
         </List>
       </Box>

@@ -8,11 +8,13 @@ export default function Layout() {
     <>
       <Navbar />
 
-      <div className="d-flex flex-column min-vh-100 align-items-center">
+      {/* Main content container for routing */}
+      <div className="d-flex flex-column min-vh-100">
         <main className="flex-grow-1">
           <Outlet />
         </main>
       </div>
+
       <Footer />
     </>
   );

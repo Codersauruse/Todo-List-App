@@ -1,6 +1,8 @@
 package com.example.backend.Controller;
 
 
+import com.example.backend.DTO.Request.RequestappUserDTO;
+import com.example.backend.DTO.Request.RequestappUserLoginDTO;
 import com.example.backend.DTO.Response.LoginResponseDTO;
 import com.example.backend.DTO.Response.registerResponseDTO;
 import com.example.backend.Entity.appUser;
@@ -17,16 +19,14 @@ public class AuthController {
     @Autowired
     UserService userService;
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody appUser AppUser){
+    public ResponseEntity<String> register(@RequestBody RequestappUserDTO AppUser){
         String message = userService.register(AppUser);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody appUser AppUser){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody RequestappUserLoginDTO AppUser){
         String jwtToken = userService.verify(AppUser);
-        LoginResponseDTO res = new LoginResponseDTO();
-        res.setUsername(AppUser.getUsername());
-        res.setAccessToken(jwtToken);
+        LoginResponseDTO res = userService.login(jwtToken,AppUser.getEmail());
         return new ResponseEntity<>(res,HttpStatus.ACCEPTED);
     }
 

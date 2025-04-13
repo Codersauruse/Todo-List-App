@@ -1,7 +1,6 @@
 package com.example.backend.Security.jwt;
 
 
-import com.example.backend.Entity.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.function.Function;
@@ -21,26 +19,28 @@ import java.util.function.Function;
 public class JWTService {
 
 
-    private String secretkey = "";
+    private final String secretkey = "n6uD2XrOgC9K+dQF3v8pGz8pQjyVZHe3pGRRb6z7xyA=";
+
+
 
     public JWTService() {
 
-        try {
-            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey sk = keyGen.generateKey();
-            secretkey = Base64.getEncoder().encodeToString(sk.getEncoded());
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
+//            SecretKey sk = keyGen.generateKey();
+//            this.secretkey = Base64.getEncoder().encodeToString(sk.getEncoded());
+//        } catch (NoSuchAlgorithmException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
-    public String generateToken(String username, List<String> roles) {
+    public String generateToken(String email, List<String> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", roles);
         return Jwts.builder()
                 .claims()
                 .add(claims)
-                .subject(username)
+                .subject(email)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
                 .and()

@@ -2,6 +2,7 @@ package com.example.backend.Repo;
 
 
 import com.example.backend.Entity.Task;
+import com.example.backend.Entity.appUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
@@ -29,4 +30,6 @@ public interface TaskRepo extends JpaRepository<Task,Long> {
 
 
     Optional<Task> findByIdAndUser_Id(Long id, Long id1);
+
+    boolean existsByUser(appUser appUser);
 }

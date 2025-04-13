@@ -32,15 +32,15 @@ public class JWTfilter extends OncePerRequestFilter {
 //  Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWxsIiwiaWF0IjoxNzIzMTgzNzExLCJleHAiOjE3MjMxODM4MTl9.5nf7dRzKRiuGurN2B9dHh_M5xiu73ZzWPr6rbhOTTHs
         String authHeader = request.getHeader("Authorization");
         String token = null;
-        String username = null;
+        String email = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            username = jwtService.extractUserName(token);
+            email = jwtService.extractUserName(token);
         }
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = context.getBean(CustomUserDetailsService.class).loadUserByUsername(username);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = context.getBean(CustomUserDetailsService.class).loadUserByUsername(email);
             if (jwtService.validateToken(token, userDetails)) {
                 List<String> roles = jwtService.extractClaim(token, claims -> claims.get("roles", List.class)); // Extract roles from the JWT token
                 Collection<GrantedAuthority> authorities = roles.stream()
