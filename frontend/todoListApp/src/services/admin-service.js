@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8080/api/admin"; // Assuming the base URL for admin APIs
+const API_URL = "http://backend:8080/api/admin"; // Assuming the base URL for admin APIs
 
 const getAllUsers = async () => {
   try {

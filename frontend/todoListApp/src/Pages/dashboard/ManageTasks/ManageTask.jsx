@@ -103,7 +103,10 @@ export default function ManageTask() {
   const confirmUpdate = async () => {
     try {
       // Call the API to update the task
-      const { id, iscomplete, ...newtask } = currentTask;
+      console.log("current task");
+      console.log(currentTask);
+      const { id, iscomplete, user, ...newtask } = currentTask;
+      console.log(newtask);
       const response = await taskService.updateTaskPartial(
         currentTask.id,
         newtask

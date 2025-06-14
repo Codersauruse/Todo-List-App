@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7  # Downgrading to a more stable version
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: TodoDB
+      MYSQL_USER: shehan
+      MYSQL_PASSWORD: shehan123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_fresh_data:/var/lib/mysql
+    networks:
+      - app-network
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123"]  # Using root for healthcheck
+      interval: 30s  # Longer interval
+      timeout: 10s   # Longer timeout
+      retries: 5
+      start_period: 60s  # Longer start period
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    container_name: backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/TodoDB?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: shehan
+      SPRING_DATASOURCE_PASSWORD: shehan123
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - mysql  # Simplified dependency without health condition
+    networks:
+      - app-network
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./frontend/todoListApp
+      dockerfile: dockerfile
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_fresh_data:

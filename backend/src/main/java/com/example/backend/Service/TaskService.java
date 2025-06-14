@@ -118,16 +118,16 @@ public class TaskService {
                 System.out.println(key);
 
 
-                           switch (key) {
+                          switch (key) {
 
-                               case "name" -> task.setName((String) value);
-                               case "description" -> task.setDescription((String) value);
-                               case "priority" -> task.setPriority((String) value);
-                               case "startDate" -> task.setStartDate(LocalDate.parse((String) value));
-                               case "dueDate" -> task.setDueDate(LocalDate.parse((String) value));
-                               default -> throw new IllegalArgumentException("Invalid field: " + key);
-                           }
-
+                              case "name" -> task.setName((String) value);
+                              case "description" -> task.setDescription((String) value);
+                              case "priority" -> task.setPriority((String) value);
+                              case "startDate" -> task.setStartDate(LocalDate.parse((String) value));
+                              case "dueDate" -> task.setDueDate(LocalDate.parse((String) value));
+                              default -> throw new IllegalArgumentException("Invalid field: " + key);
+                          }
+                      
 
         });
             taskRepo.save(task);

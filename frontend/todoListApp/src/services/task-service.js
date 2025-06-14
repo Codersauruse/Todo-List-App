@@ -1,8 +1,7 @@
-import axios from "axios";
 import authHeader from "./auth-header";
 import Apiclient from "./ApiClient";
 
-const API_URL = "api/task/";
+const API_URL = "/task/";
 
 const createTask = async (task) => {
   try {
@@ -66,7 +65,7 @@ const deleteTask = async (taskId) => {
 
 const updateTaskPartial = async (taskId, updates) => {
   try {
-    // Send a PATCH request to update specific fields of a task
+    // Send a PATCH request to update specific fields of a tas
     const response = await Apiclient.patch(
       `${API_URL}update/${taskId}`,
       updates,

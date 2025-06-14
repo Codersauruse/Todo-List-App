@@ -1,6 +1,6 @@
 import Apiclient from "./ApiClient"; // Import the reusable Axios client
 
-const API_URL = "/api/auth/"; // Relative path for auth-related endpoints
+const API_URL = "/auth/"; // Relative path for auth-related endpoints
 
 // Register a new user
 const register = async (username, email, password) => {
